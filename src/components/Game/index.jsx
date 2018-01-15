@@ -32,18 +32,14 @@ class Game extends Component {
         const { rows, columns } = this.state;
         const game = {};
         let array = Array.from(Array(rows * columns).keys());
-        console.log(array);
-        debugger;
         if (withShuffle) {
             array = shuffle(array);
         }
-        console.log(array);
         for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
             game[rowIndex.toString()] = [];
             for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
                 const totalIndex = columns * rowIndex + columnIndex + 1;
                 const value = array[totalIndex - 1];
-                console.log(value);
                 game[rowIndex].push({
                     row: rowIndex,
                     column: columnIndex,
@@ -52,7 +48,6 @@ class Game extends Component {
                 });
             }
         }
-        console.log(game);
         return game
     };
 
@@ -66,7 +61,6 @@ class Game extends Component {
 
     startNewGame = () => {
         const { columns, rows } = this.state;
-        debugger
         const game = this.getStandardMap();
         this.setState({
             cells: { ...game },
@@ -92,7 +86,6 @@ class Game extends Component {
             }
             return result
         }, false);
-        console.log(isSorted);
         if (isSorted) {
             alert('Это успех!')
         }
@@ -103,14 +96,12 @@ class Game extends Component {
         const nextGameState = Object.assign({}, cells);
         nextGameState[a.row][a.column] = Object.assign({}, b, { column: a.column, row: a.row });
         nextGameState[b.row][b.column] = Object.assign({}, a, { column: b.column, row: b.row });
-        console.log(nextGameState);
         this.setState({ cells: nextGameState }, this.checkIfWon);
 
 
     };
 
     handleTurn = cell => {
-        console.log(`Clicked on cell ${JSON.stringify(cell)}`);
         const map = this.state.cells;
         const top = map[cell.row - 1] && map[cell.row - 1][cell.column];
         const bottom = map[cell.row + 1] && map[cell.row + 1][cell.column];
@@ -120,7 +111,6 @@ class Game extends Component {
 
         const { blankIndex } = this.state;
         const blank = neighbors.find(cell => cell.id === blankIndex);
-        // console.log(blank);
 
         if (blank) {
             this.swapCells(Object.assign({}, cell), Object.assign({}, blank));
@@ -128,33 +118,24 @@ class Game extends Component {
     };
 
     changeColumnsLength = e => {
-        this.setState({ columns: e.target.value })
+        this.setState({ columns: e.target.value }, this.startNewGame)
     };
 
     changeRowsLength = e => {
-        this.setState({ rows: e.target.value })
-    };
-    
-    makeTurn = (cellA, cellB) => {
-        console.log(cellA);
-        console.log(cellB);
-        // this.setState({
-        //     [cellA.id]: { ...cellB },
-        //     [cellB.id]: { ...cellA },
-        // });
+        this.setState({ rows: e.target.value }, this.startNewGame)
     };
 
     render() {
         const { cells } = this.state;
         return (
             <div className="game">
-                <div>
+                <div className="control">
                     <label htmlFor="columns">Columns</label>
-                    <input type="number" onChange={this.changeColumnsLength} value={this.state.columns} id="columns" />
+                    <input type="range" min={2} max={6} onChange={this.changeColumnsLength} value={this.state.columns} id="columns" />
                 </div>
-                <div>
+                <div className="control">
                     <label htmlFor="rows">Rows</label>
-                    <input type="number" onChange={this.changeRowsLength} value={this.state.rows} id="rows" />
+                    <input type="range" min={2} max={6} onChange={this.changeRowsLength} value={this.state.rows} id="rows" />
                 </div>
                 <div className="game__content">
                     <h1>Game</h1>

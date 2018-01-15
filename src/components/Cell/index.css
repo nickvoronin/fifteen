@@ -1,0 +1,10 @@
+.cell {
+    color: #000;
+    border: 2px solid;
+    display: flex;
+    flex: 1;
+}
+
+.cell__content {
+    margin: auto;
+}

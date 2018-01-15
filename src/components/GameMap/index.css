@@ -1,0 +1,9 @@
+.map {
+    border: 5px solid gray;
+    height: 75px;
+    width: 350px;
+    display: flex;
+    justify-content: stretch;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 25% 25% 25% 25%;
+}

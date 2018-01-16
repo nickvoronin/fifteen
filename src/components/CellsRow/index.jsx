@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import Cell from '../Cell';
 import './index.css';
 
-class GameMap extends Component {
+class CellsRow extends Component {
     render() {
         const { cells } = this.props;
 
         return (
-            <div className="map">
+            <div className="row">
                 {cells.map(props =>
                     <Cell
+                        {...props}
                         key={props.id}
-                        text={props.text}
-                        canMove={props.canMove}
                         handleTurn={() => this.props.handleTurn(props)}
                     />
                 )}
@@ -22,7 +21,7 @@ class GameMap extends Component {
     }
 }
 
-GameMap.propTypes = {
+CellsRow.propTypes = {
     cells: PropTypes.arrayOf(PropTypes.shape(
         {
             canMove: PropTypes.bool,
@@ -32,4 +31,4 @@ GameMap.propTypes = {
     )),
     handleTurn: PropTypes.func.isRequired,
 };
-export default GameMap;
+export default CellsRow;

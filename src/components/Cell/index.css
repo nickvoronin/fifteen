@@ -1,8 +1,20 @@
 .cell {
+    height: 80px;
+    max-width: 80px;
+    min-width: 80px;
     color: #000;
-    border: 2px solid;
+    border: 2px solid white;
     display: flex;
     flex: 1;
+    background: darkslategray;
+}
+
+.cell:hover {
+    background: slategray;
+}
+
+.empty {
+    background: gainsboro;
 }
 
 .cell__content {

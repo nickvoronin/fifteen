@@ -4,10 +4,10 @@ import './index.css';
 
 class Cell extends Component {
     render() {
-        const { text, handleTurn } = this.props;
+        const { isBlank, text, handleTurn } = this.props;
         return (
-            <div className="cell" onClick={handleTurn}>
-                <div className="cell__content">{text}</div>
+            <div className={`cell ${isBlank ? 'empty': ''}`} onClick={handleTurn}>
+                <div className="cell__content">{isBlank || text}</div>
             </div>
         )
     }

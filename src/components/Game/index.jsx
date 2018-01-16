@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GameMap from '../GameMap';
+import CellsRow from '../CellsRow';
 import './index.css';
 
 function shuffle(array) {
@@ -44,7 +44,8 @@ class Game extends Component {
                     row: rowIndex,
                     column: columnIndex,
                     id: value + 1,
-                    text: (value + 1).toString()
+                    text: (value + 1).toString(),
+                    isBlank: (value + 1) === (columns * rows)
                 });
             }
         }
@@ -102,6 +103,7 @@ class Game extends Component {
     };
 
     handleTurn = cell => {
+        console.log(cell)
         const map = this.state.cells;
         const top = map[cell.row - 1] && map[cell.row - 1][cell.column];
         const bottom = map[cell.row + 1] && map[cell.row + 1][cell.column];
@@ -138,7 +140,6 @@ class Game extends Component {
                     <input type="range" min={2} max={6} onChange={this.changeRowsLength} value={this.state.rows} id="rows" />
                 </div>
                 <div className="game__content">
-                    <h1>Game</h1>
                     <button
                         className="button button-green"
                         type="button"
@@ -154,11 +155,9 @@ class Game extends Component {
                         Randomize
                     </button>
                     {
-                        Object.keys(cells).map(row => cells[row]).map(rowCells => {
-                            console.log(cells);
-                            return <GameMap cells={rowCells} handleTurn={this.handleTurn} />
-                        }
-                        )
+                        Object.values(cells).map(rowCells => {
+                            return <CellsRow cells={rowCells} handleTurn={this.handleTurn} />
+                        })
                     }
                 </div>
             </div>

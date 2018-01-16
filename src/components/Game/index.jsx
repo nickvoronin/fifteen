@@ -75,8 +75,8 @@ class Game extends Component {
 
     checkIfWon = () => {
         const { cells } = this.state;
-        const flatCells = Object.keys(cells).reduce((result, rowIndex) => {
-            return result.concat(cells[rowIndex])
+        const flatCells = Object.values(cells).reduce((result, row) => {
+            return result.concat(row)
         }, []);
 
         const isSorted = flatCells.reduce((result, cell, index, array) => {
@@ -103,7 +103,6 @@ class Game extends Component {
     };
 
     handleTurn = cell => {
-        console.log(cell)
         const map = this.state.cells;
         const top = map[cell.row - 1] && map[cell.row - 1][cell.column];
         const bottom = map[cell.row + 1] && map[cell.row + 1][cell.column];
